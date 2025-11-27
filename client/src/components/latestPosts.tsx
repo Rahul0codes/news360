@@ -132,6 +132,23 @@ const LatestPosts: FC = () => {
     return t.slice(0, 220).trim() + "...";
   };
 
+  // Produce a short preview for descriptions that prefers returning a full sentence
+  // If a sentence-ending punctuation (., ?, !) is found within `cap` chars, return up to it.
+  // Otherwise fall back to a safe truncation of `fallbackLen` characters.
+  const previewUntilSentence = (txt: string | undefined | null, fallbackLen = 120, cap = 300) => {
+    if (!txt) return "No description.";
+    const text = txt.replace(/\n+/g, " ").trim();
+    // find first sentence-ending punctuation
+    const m = text.match(/[.?!](?:\s|$)/);
+    if (m && m.index !== undefined) {
+      const end = m.index + 1; // include the punctuation
+      if (end <= cap) return text.slice(0, end).trim();
+    }
+    // fallback: if text is short enough, return whole text
+    if (text.length <= fallbackLen) return text;
+    return text.slice(0, fallbackLen).trim() + "...";
+  };
+
   // Improved sentiment: take separate fields (title/description/content) and weight them,
   // expand positive/negative lexicons and produce a normalized score so values vary per-article.
   const detectEmotionData = (t: string, title = "", desc = "") => {
@@ -277,7 +294,7 @@ const LatestPosts: FC = () => {
                 imgUrl={news.image || "/categories/images/politics3.jpg"}
                 Title={<span className="font-bold">{news.title}</span>}
                 categories={<span className="px-2 py-1 bg-gray-200 rounded">{news.source?.name || "News"}</span>}
-                description={<span>{news.description ? `${news.description.slice(0, 120)}...` : "No description."}</span>}
+                description={<span>{news.description ? previewUntilSentence(news.description) : "No description."}</span>}
                 negative={`${pct.negative}%`}
                 neutral={`${pct.neutral}%`}
                 positive={`${pct.positive}%`}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
@@ -41,9 +42,9 @@ const Header = () => {
             <div className="flex gap-6">
               <div className="flex justify-center items-center space-x-12">
                 ​​{" "}
-                <a className="hover:cursor-pointer hover:scale-[1.02] duration-300">
+                <Link href="/about" className="hover:cursor-pointer hover:scale-[1.02] duration-300">
                   About
-                </a>
+                </Link>
                 ​
                 <a href="/" className="hover:cursor-pointer hover:scale-[1.02] duration-300">
                   Refresh

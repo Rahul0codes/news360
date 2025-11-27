@@ -16,7 +16,9 @@ export default function Home() {
         className="w-full flex items-center justify-center text-center shadow-lg rounded-b-3xl mb-8"
         style={{
           minHeight: "420px",
-          backgroundImage: "linear-gradient(rgba(18,24,39,0.45), rgba(99,102,241,0.15)), url('https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1600&q=80')",
+          // Use a news-related image from Unsplash as the primary background.
+          // Local images `/news-bg.jpg` and `/main.jpg` remain as fallbacks.
+          backgroundImage: "linear-gradient(rgba(18,24,39,0.45), rgba(99,102,241,0.15)), url('https://source.unsplash.com/1600x900/?news,press'), url('/news-bg.jpg'), url('/main.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

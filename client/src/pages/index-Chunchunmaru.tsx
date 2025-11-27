@@ -17,7 +17,9 @@ export default function Home() {
 
   // Example summary/emotion handler
   const handleSummaryRequest = (description: string, sentiment: string) => {
-    setSummaryText(description.slice(0, 100) + "...");
+    // Use the full description as the summary instead of truncating it.
+    // If you want a shorter preview in the UI, we can add a "Read more" toggle instead.
+    setSummaryText(description);
     let score = [0, 0, 0];
     if (sentiment) {
       try {
